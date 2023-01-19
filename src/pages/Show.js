@@ -9,15 +9,26 @@ const Show = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`)
       .then((results) => {
-        setShow(results);
-        setIsLoading(false);
+        setTimeout(() => {
+          if (isMounted) {
+            setShow(results);
+            setIsLoading(false);
+          }
+        }, 2000);
       })
       .catch((err) => {
-        setError(err.message);
-        setIsLoading(false);
+        if (isMounted) {
+          setError(err.message);
+          setIsLoading(false);
+        }
       });
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
   console.log(show);
 
@@ -27,6 +38,7 @@ const Show = () => {
   if (error) {
     return <div>Error has occured. {error}</div>;
   }
+  return <div>This is show page.</div>;
 };
 
 export default Show;
