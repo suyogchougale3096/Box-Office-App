@@ -8,6 +8,7 @@ const Home = () => {
   let [input, setInput] = useState("");
   let [results, setResults] = useState(null);
   const [searchOption, setsearchOption] = useState("shows");
+ 
 
   const isShowSearch = searchOption === "shows";
 
