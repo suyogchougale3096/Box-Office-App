@@ -1,10 +1,11 @@
 import React from "react";
 
 import IMG_PLACEHOLDER from "../../images/not-found.png";
+import { CastList } from "./Cast.styled";
 
 const Cast = ({ cast }) => {
   return (
-    <div>
+    <CastList>
       {cast.map(({ person, character, voice }, key) => (
         <div key={key} className="cast-item">
           <div className="pic-wrapper">
@@ -21,7 +22,7 @@ const Cast = ({ cast }) => {
           </div>
         </div>
       ))}
-    </div>
+    </CastList>
   );
 };
 
