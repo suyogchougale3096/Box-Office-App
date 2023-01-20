@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { StyledShowCard } from "../show/ShowCard.styled";
 import { Star } from "../styled";
@@ -28,4 +28,4 @@ const Showcards = ({ id, image, name, summary, onStarClick, isStarred }) => {
   );
 };
 
-export default Showcards;
+export default memo(Showcards);

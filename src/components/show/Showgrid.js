@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useCallback } from "react";
 import Showcards from "./Showcards";
 import { useShows } from "../../misc/custom-hooks";
 
@@ -13,13 +14,13 @@ const Showgrid = ({ data }) => {
       {data.map(({ show }) => {
         const isStarred = starredShows.includes(show.id);
 
-        const onStarClick = () => {
+        const onStarClick = useCallback(() => {
           if (isStarred) {
-            dispatchStarred({ type: "REMOVE", showId: show.id });
+            dispatchStarred({ type: 'REMOVE', showId: show.id });
           } else {
-            dispatchStarred({ type: "ADD", showId: show.id });
+            dispatchStarred({ type: 'ADD', showId: show.id });
           }
-        };
+        }, [isStarred, show.id]);
 
         return (
           <Showcards

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import ActorGrid from "../components/actor/ActorGrid";
 import MainPageLayout from "../components/MainPageLayout";
 import Showgrid from "../components/show/Showgrid";
@@ -11,6 +11,23 @@ import {
 } from "./Home.styled";
 import CustomRadio from "../components/CustomRadio";
 
+const renderResults = (results) => {
+  if (results && results.length === 0) {
+    return <div>No Results.</div>;
+  }
+  if (results && results.length > 0) {
+    return results[0].show ? (
+      <Showgrid data={results} />
+    ) : (
+      // results.map((item) => <div key={item.show.id}>{item.show.name}</div>)
+      <ActorGrid data={results} />
+      // results.map((item) => (
+      //   <div key={item.person.id}>{item.person.name}</div>
+      // ))
+    );
+  }
+  return null;
+};
 const Home = () => {
   let [input, setInput] = useLastQuery();
   let [results, setResults] = useState(null);
@@ -18,10 +35,12 @@ const Home = () => {
 
   const isShowSearch = searchOption === "shows";
 
-  const onInputChange = (ev) => {
-    setInput(ev.target.value);
-    // console.log(ev.target.value);
-  };
+  const onInputChange = useCallback(
+    (ev) => {
+      setInput(ev.target.value);
+    },
+    [setInput]
+  );
 
   // https://api.tvmaze.com/singlesearch/shows?q=mens
   const onSearch = () => {
@@ -43,27 +62,9 @@ const Home = () => {
     }
   };
 
-  const renderResults = () => {
-    if (results && results.length === 0) {
-      return <div>No Results.</div>;
-    }
-    if (results && results.length > 0) {
-      return results[0].show ? (
-        <Showgrid data={results} />
-      ) : (
-        // results.map((item) => <div key={item.show.id}>{item.show.name}</div>)
-        <ActorGrid data={results} />
-        // results.map((item) => (
-        //   <div key={item.person.id}>{item.person.name}</div>
-        // ))
-      );
-    }
-    return null;
-  };
-
-  const onRadioChange = (ev) => {
+  const onRadioChange = useCallback((ev) => {
     setsearchOption(ev.target.value);
-  };
+  }, []);
   // console.log(searchOption);
   return (
     <div>
@@ -102,7 +103,7 @@ const Home = () => {
           Search
         </button>
       </SearchButtonWrapper>
-      {renderResults()}
+      {renderResults(results)}
     </div>
   );
 };
