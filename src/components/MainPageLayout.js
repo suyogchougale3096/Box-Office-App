@@ -2,7 +2,7 @@ import React from "react";
 import Navs from "./Navs";
 import Title from "./Title";
 const MainPageLayout = (childern) => {
-  const name = childern.name;
+  // const name = childern.name;
   return (
     <div>
       <Title
@@ -10,7 +10,7 @@ const MainPageLayout = (childern) => {
         subtitle="Are you looking for a movie or an actor?"
       />
       <Navs />
-      <div>This is {name} page.</div>
+      {/* <div>This is {name} page.</div> */}
     </div>
   );
 };

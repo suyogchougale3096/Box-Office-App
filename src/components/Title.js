@@ -1,13 +1,14 @@
 import React from "react";
+import { TitleWrapper } from "./Title.styled";
 
 const Title = (childern) => {
   const title = childern.title;
   const subtitle = childern.subtitle;
   return (
-    <div>
+    <TitleWrapper>
       <h1>{title}</h1>
       <p>{subtitle}</p>
-    </div>
+    </TitleWrapper>
   );
 };
 
